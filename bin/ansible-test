@@ -56,10 +56,15 @@ if __name__ == "__main__":
 
     args, extra_args = parser.parse_known_args()
 
+    if args.extra_install:
+       extra_install = " ".join(args.extra_install)
+    else:
+       extra_install = ""
+
     context = {
        'image': args.image,
        'family': args.family,
-       'extra_install': " ".join(args.extra_install),
+       'extra_install': extra_install,
        'extra_args': extra_args
     }
 
