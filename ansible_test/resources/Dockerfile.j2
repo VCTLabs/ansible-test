@@ -5,6 +5,7 @@ MAINTAINER Rob McQueen
 # Install Ansible prerequisites
 {% if family == "Debian" %}
 RUN apt-get update && apt-get install -y \
+  {{extra_install}} \
   libffi-dev \
   libyaml-dev \
   libssl-dev \
@@ -13,6 +14,7 @@ RUN apt-get update && apt-get install -y \
   sudo
 {% elif family == "RedHat" %}
 RUN yum install -y \
+  {{extra_install}} \
   gcc \
   libffi-devel \
   libyaml-devel \
@@ -25,6 +27,7 @@ RUN yum install -y \
 # do the 'emerge --sync' in base image, not here  -- not polite to
 # keep pulling from the rsync servers on every run of a test
 RUN emerge \
+  {{extra_install}} \
   dev-python/pyyaml \
   dev-python/pip \
   dev-python/virtualenv \

@@ -51,13 +51,15 @@ if __name__ == "__main__":
     parser.add_argument("--family", "-f", default="Debian",
                         choices=["Debian", "RedHat", "Gentoo"], 
                         help="ansible_os_family value for Base Image")
-
+    parser.add_argument("--extra-install", action="append", 
+                        help="Extra package required by role (can be used multiple times)")
 
     args, extra_args = parser.parse_known_args()
 
     context = {
        'image': args.image,
        'family': args.family,
+       'extra_install': " ".join(args.extra_install),
        'extra_args': extra_args
     }
 

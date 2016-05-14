@@ -36,17 +36,22 @@ Usage
 .. code-block:: bash
 
    usage: ansible-test [-h] [--image IMAGE] [--family {Debian,RedHat,Gentoo}]
+                       [--extra-install EXTRA_INSTALL]
                        role
-
+   
    positional arguments:
      role                  Role to test
-
+   
    optional arguments:
      -h, --help            show this help message and exit
      --image IMAGE, -i IMAGE
                            Docker Base Image
      --family {Debian,RedHat,Gentoo}, -f {Debian,RedHat,Gentoo}
                            ansible_os_family value for Base Image
+     --extra-install EXTRA_INSTALL
+                           Extra package required by role (can be used multiple
+                           times)
+
    
 Tested image/family combinations:
 
