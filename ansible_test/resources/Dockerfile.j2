@@ -48,6 +48,10 @@ ADD . /build
 COPY .ansible-test /build
 WORKDIR /build
 
+{% if ports is defined %}
+EXPOSE {{ports}}
+{% endif %}
+
 CMD . /opt/ansible/venv/bin/activate && ansible-playbook -i inventory.yml \
     -c local -e testing=true -e role=$DOCKER_TEST_ROLE \
     {{ extra_args| join(" ") }} playbook.yml; /bin/bash

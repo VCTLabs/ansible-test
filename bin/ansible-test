@@ -51,6 +51,8 @@ if __name__ == "__main__":
     parser.add_argument("--family", "-f", default="Debian",
                         choices=["Debian", "RedHat", "Gentoo"], 
                         help="ansible_os_family value for Base Image")
+    parser.add_argument("--ports", "-p", action="append", 
+                        help="Network port (or list of ports) that should be accessible from host")
     parser.add_argument("--extra-install", action="append", 
                         help="Extra package required by role (can be used multiple times)")
 
@@ -68,6 +70,9 @@ if __name__ == "__main__":
        'extra_args': extra_args
     }
 
+    if args.ports:
+      context['ports'] = " ".join(args.ports)
+
     main(context)
 
     # Build Docker Container
@@ -80,6 +85,6 @@ if __name__ == "__main__":
     subprocess.check_call(
         ['docker', 'run',
          '-e', 'DOCKER_TEST_ROLE=%s' % args.role,
-         '--privileged=true',
+         '--privileged=true', '--publish-all',
          '-it', DOCKER_CONTAINER]
     )
